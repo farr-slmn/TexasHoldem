@@ -27,15 +27,10 @@ public class Card {
     }
 
     public enum CardSuitEnum {
-        CLUBS(1),
-        DIAMONDS(2),
-        HEARTS(3),
-        SPADES(4);
-
-        final int suit;
-        CardSuitEnum(int p) {
-            suit = p;
-        }
+        CLUBS,
+        DIAMONDS,
+        HEARTS,
+        SPADES;
     }
 
     private CardSuitEnum suit;
