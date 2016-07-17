@@ -11,12 +11,12 @@ public class Player {
 
     public List<Card> getRankingList()
     {
-        return rankingList;
+        return rankedList;
     }
 
     public void setRankingList(List<Card> rankingList)
     {
-        this.rankingList = rankingList;
+        this.rankedList = rankingList;
     }
 
     public Card[] getCards()
