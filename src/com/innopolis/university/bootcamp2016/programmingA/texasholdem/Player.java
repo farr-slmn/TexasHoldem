@@ -1,8 +1,3 @@
-package com.innopolis.university.bootcamp2016.programmingA.texasholdem;
-
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by mer_e on 17.07.2016.
  */
@@ -10,16 +5,18 @@ public class Player {
     private Card[] cards = new Card[2];
     private Card higestCard = null;
     private ArrayList<Card> rankedList = null;
-    private CombinationRank comboRank = null;
+    private CombinationRank maximalComboRank = null;
+    private long money;
 
 
 
-    public List<Card> getRankingList()
+
+    public ArrayList<Card> getRankingList()
     {
         return rankedList;
     }
 
-    public void setRankingList(List<Card> rankingList)
+    public void setRankingList(ArrayList<Card> rankingList)
     {
         this.rankedList = rankingList;
     }
@@ -53,6 +50,26 @@ public class Player {
     {
        //отсортировать свой массив карт
         //и забить в аррайлист
+    }
+
+    public void setMaxCombo(CombinationRank maxCombo)
+    {
+        this.maximalComboRank = maxCombo;
+    }
+
+    public CombinationRank getMaxCombo()
+    {
+       return maximalComboRank;
+    }
+
+    public void setMoney(long money)
+    {
+        this.money = money;
+    }
+
+    public long getMoney()
+    {
+        return money;
     }
 
 }
