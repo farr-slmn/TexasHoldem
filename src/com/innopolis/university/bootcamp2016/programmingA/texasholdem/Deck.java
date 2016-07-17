@@ -1,7 +1,6 @@
 package com.innopolis.university.bootcamp2016.programmingA.texasholdem;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -12,14 +11,14 @@ public class Deck {
     private Random random;
 
     public Deck() {
-        for(enum rank : Card.CardRankEnum){
-            for(enum suit : Card.CardSuitEnum){
+        for(Card.CardRankEnum rank : Card.CardRankEnum.values()){
+            for(Card.CardSuitEnum suit : Card.CardSuitEnum.values()){
                 cards.add(new Card(suit,rank));
             }
         }
     }
 
-    private void createDeck() {
+    private void shuffle() {
 
     }
 
