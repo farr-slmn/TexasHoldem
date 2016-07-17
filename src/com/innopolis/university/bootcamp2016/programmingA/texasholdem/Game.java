@@ -9,7 +9,16 @@ public class Game {
     Player currPlayer;
     int bank;
 
-    boolean newGame(int bank, Player ... players){
+    public Game(int bank, Player ... players){
+        this.players = new LinkedList<Player>();
+        for(Player p : players){
+            this.players.add(p);
+        }
+
+        this.bank = bank;
+    }
+
+    boolean newGame(){
         return true;
     }
 
