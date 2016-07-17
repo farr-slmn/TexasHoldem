@@ -49,6 +49,7 @@ public class CombinationRank {
         else if (isHighCard(summaryCards)){
             return bestCombination;
         }
+        return bestCombination;
     }
 
     public boolean isRoyalFlush(ArrayList<Card> summaryCards){
