@@ -21,7 +21,10 @@ public class Card {
         ACE(14);
 
         final int rank;
-        CardRankEnum(int p) {
+
+
+        CardRankEnum(int p)
+        {
             rank = p;
         }
     }
@@ -33,7 +36,10 @@ public class Card {
         SPADES(4);
 
         final int suit;
-        CardSuitEnum(int p) {
+
+
+        CardSuitEnum(int p)
+        {
             suit = p;
         }
     }
@@ -50,11 +56,13 @@ public class Card {
         this.rank = rank;
     }
 
-    public CardSuitEnum getSuit() {
+    public CardSuitEnum getSuit()
+    {
         return suit;
     }
 
-    public CardRankEnum getRank() {
+    public CardRankEnum getRank()
+    {
         return rank;
     }
 
