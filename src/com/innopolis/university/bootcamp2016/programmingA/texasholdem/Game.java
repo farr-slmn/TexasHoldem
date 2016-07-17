@@ -10,4 +10,6 @@ public class Game {
     LinkedList<Player> players;
     Player currPlayer;
     int bank;
+    int kek;
+
 }
