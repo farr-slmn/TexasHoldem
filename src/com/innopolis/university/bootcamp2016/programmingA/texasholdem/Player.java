@@ -52,7 +52,7 @@ public class Player {
         return  rankedList;
     }
 
-    public ArrayList<Card> setRankedList()
+    public void setRankedList()
     {
        //отсортировать свой массив карт
         //и забить в аррайлист
