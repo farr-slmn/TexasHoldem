@@ -1,10 +1,3 @@
-import com.innopolis.university.bootcamp2016.programmingA.texasholdem.Card;
-import com.sun.deploy.appcontext.AppContext;
-import com.sun.glass.ui.Application;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-
 /**
  * Created by mer_e on 17.07.2016.
  */
