@@ -2,6 +2,7 @@ package com.innopolis.university.bootcamp2016.programmingA.texasholdem;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Player{
     private String name;

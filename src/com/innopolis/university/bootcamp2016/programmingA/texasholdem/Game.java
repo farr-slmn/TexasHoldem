@@ -4,6 +4,8 @@ package com.innopolis.university.bootcamp2016.programmingA.texasholdem;
 import java.util.*;
 
 public class Game {
+    public boolean gamefinished = true;
+
     private final int blind;
     private Deck deck;
     private LinkedList<Player> players;
