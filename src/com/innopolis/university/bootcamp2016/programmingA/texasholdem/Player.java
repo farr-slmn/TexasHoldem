@@ -12,11 +12,18 @@ public class Player{
     private CombinationRank maximalComboRank = null;
     private long money;
 
-    enum Decision{
+    enum Decision
+    {
         CALL, RAISE, FOLD;
     }
 
-    public Player(String name){
+    public Player()
+    {
+
+    }
+
+    public Player(String name)
+    {
         this.name = name;
     }
 
@@ -77,8 +84,12 @@ public class Player{
         this.money = money;
     }
 
-    public Decision makeDecision(Game game) {
-        return Decision.values()[new Random().nextInt(Decision.values().length)];
+    public Decision makeDecision(Game game)
+    {
+
+        Scanner sc = new Scanner(System.in);
+
+        return null;
     }
 
     @Override

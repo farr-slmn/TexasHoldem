@@ -21,7 +21,8 @@ public class Game {
         Preflop, Flop, Turn, River, END;
     }
 
-    public Game(int blind, Player ... players){
+    public Game(int blind, Player ... players)
+    {
         this.blind = blind;
         if(players.length != 4){
             throw new IllegalArgumentException("Player amount not equal to 4");
