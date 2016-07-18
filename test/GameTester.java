@@ -18,14 +18,8 @@ public class GameTester {
         });
         Game game = new Game(50000, new Player("Tamara"), new Player("John"), new Player("Albert"), new Player("Zak"));
         int was = game.getCurrPlayers().size();
-        game.startGame();
         int become = game.getCurrPlayers().size();
         become += sb.toString().split("FOLDS").length - 1;
         Assert.assertEquals(was, become);
-    }
-
-    @Test
-    public void cardsOpen(){
-        Assert.assertEquals(new Game(50000, new Player("Tamara"), new Player("John"), new Player("Albert"), new Player("Zak")).gamefinished, true);
     }
 }
