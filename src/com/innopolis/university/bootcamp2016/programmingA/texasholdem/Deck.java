@@ -35,7 +35,6 @@ public class Deck {
     {
         long seed = System.nanoTime();
         Collections.shuffle(cards, new Random(seed));
-
         for(Card c : cards)
         {
             deckStack.add(c);
