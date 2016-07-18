@@ -1,9 +1,26 @@
 package com.innopolis.university.bootcamp2016.programmingA.texasholdem;
 
-/**
- * Created by User on 17.07.2016.
- */
 public class Card {
+
+    private CardSuitEnum suit;
+    private CardRankEnum rank;
+
+    public Card() {
+
+    }
+
+    public Card(CardSuitEnum suit, CardRankEnum rank) {
+        this.suit = suit;
+        this.rank = rank;
+    }
+
+    public CardSuitEnum getSuit() {
+        return suit;
+    }
+
+    public CardRankEnum getRank() {
+        return rank;
+    }
 
     public enum CardRankEnum {
         CARD_2,
@@ -26,26 +43,6 @@ public class Card {
         DIAMONDS,
         HEARTS,
         SPADES
-    }
-
-    private CardSuitEnum suit;
-    private CardRankEnum rank;
-
-    public Card(){
-
-    }
-
-    public Card(CardSuitEnum suit, CardRankEnum rank) {
-        this.suit = suit;
-        this.rank = rank;
-    }
-
-    public CardSuitEnum getSuit() {
-        return suit;
-    }
-
-    public CardRankEnum getRank() {
-        return rank;
     }
 
 }
