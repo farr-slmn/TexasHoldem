@@ -10,6 +10,8 @@ public class Card {
     }
 
     public Card(CardSuitEnum suit, CardRankEnum rank) {
+
+
         this.suit = suit;
         this.rank = rank;
     }

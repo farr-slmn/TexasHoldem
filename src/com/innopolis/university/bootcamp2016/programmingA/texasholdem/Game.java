@@ -54,9 +54,9 @@ public class Game {
                     System.out.println("DUNNO WHAT DOES "+tmp);
             }
         }
-        tableCards.add(deck.pop());
-        tableCards.add(deck.pop());
-        tableCards.add(deck.pop());
+        tableCards.add(deck.pullCard());
+        tableCards.add(deck.pullCard());
+        tableCards.add(deck.pullCard());
         return true;
     }
 
@@ -67,7 +67,7 @@ public class Game {
 
     private void preflop(){
         for(Player player: currPlayers){
-            player.setCards(new Card[]{deck.pop(), deck.pop()});
+            player.setCards(new Card[]{deck.pullCard(), deck.pullCard()});
         }
     }
 

@@ -19,14 +19,20 @@ public class Player{
         this.name = name;
     }
 
-    public ArrayList<Card> getRankingList()
+    public ArrayList<Card> getRankedList()
     {
         return rankedList;
     }
 
-    public void setRankingList(ArrayList<Card> rankingList)
+    public void setRankedList(ArrayList<Card> rankedList)
     {
-        this.rankedList = rankingList;
+        this.rankedList = rankedList;
+    }
+
+    public void setRankedList()
+    {
+        //отсортировать свой массив карт
+        //и забить в аррайлист
     }
 
     public Card[] getCards()
@@ -49,16 +55,7 @@ public class Player{
         this.higestCard=higestCard;
     }
 
-    public ArrayList<Card> getRankedList()
-    {
-        return  rankedList;
-    }
 
-    public void setRankedList()
-    {
-       //отсортировать свой массив карт
-        //и забить в аррайлист
-    }
 
     public CombinationRank getMaxCombo()
     {

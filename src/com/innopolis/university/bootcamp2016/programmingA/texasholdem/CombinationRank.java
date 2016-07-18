@@ -15,7 +15,9 @@ public class CombinationRank {
     }
 
     public ArrayList<Card> bestCombination(){
-        if (isRoyalFlush(summaryCards)){
+
+        if (isRoyalFlush(summaryCards))
+        {
             return bestCombination;
         }
         else if (isStraightFlush(summaryCards)){
