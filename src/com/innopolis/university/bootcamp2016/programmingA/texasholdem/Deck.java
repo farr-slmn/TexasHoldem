@@ -14,29 +14,41 @@ public class Deck {
 
     public Deck()
     {
-        for(Card.CardRankEnum rank : Card.CardRankEnum.values()){
-            for(Card.CardSuitEnum suit : Card.CardSuitEnum.values()){
+        cards = new ArrayList<>();
+        deckStack = new Stack<>();
+
+        for(Card.CardRankEnum rank : Card.CardRankEnum.values())
+        {
+            for(Card.CardSuitEnum suit : Card.CardSuitEnum.values())
+            {
                 cards.add(new Card(suit,rank));
             }
         }
 
-        shuffleDeck();
+
+
+
+
+    }
+
+    public void shuffleDeck()
+    {
+        long seed = System.nanoTime();
+        Collections.shuffle(cards, new Random(seed));
 
         for(Card c : cards)
         {
             deckStack.add(c);
         }
-
-    }
-
-    private void shuffleDeck()
-    {
-        long seed = System.nanoTime();
-        Collections.shuffle(cards, new Random(seed));
     }
 
     public Card pullCard()
     {
         return deckStack.pop();
+    }
+
+    public ArrayList<Card> getCards()
+    {
+        return cards;
     }
 }
