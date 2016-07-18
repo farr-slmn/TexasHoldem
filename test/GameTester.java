@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.PrintStream;
 
+
 public class GameTester {
     @Test
     public void testy(){
@@ -21,5 +22,10 @@ public class GameTester {
         int become = game.getCurrPlayers().size();
         become += sb.toString().split("FOLDS").length - 1;
         Assert.assertEquals(was, become);
+    }
+
+    @Test
+    public void cardsOpen(){
+        Assert.assertEquals(new Game(50000, new Player("Tamara"), new Player("John"), new Player("Albert"), new Player("Zak")).gamefinished, true);
     }
 }
