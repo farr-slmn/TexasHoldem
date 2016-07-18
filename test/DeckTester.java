@@ -23,6 +23,10 @@ public class DeckTester {
         deck.shuffleDeck();
         ArrayList<Card> become = deck.getCards();
 
+
+
         Assert.assertEquals(was, become);
+
+
     }
 }
