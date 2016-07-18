@@ -1,11 +1,7 @@
 package com.innopolis.university.bootcamp2016.programmingA.texasholdem;
 
 import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Created by User on 17.07.2016.
- */
 public class CombinationRank {
 
     ArrayList<Card> summaryCards;

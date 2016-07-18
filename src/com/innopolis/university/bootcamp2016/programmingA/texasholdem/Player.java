@@ -1,21 +1,23 @@
 package com.innopolis.university.bootcamp2016.programmingA.texasholdem;
 
-
-
 import java.util.ArrayList;
+import java.util.Random;
 
-/**
- * Created by mer_e on 17.07.2016.
- */
-public class Player {
+public class Player{
+    private String name;
     private Card[] cards = new Card[2];
     private Card higestCard = null;
     private ArrayList<Card> rankedList = null;
     private CombinationRank maximalComboRank = null;
     private long money;
 
+    enum Decision{
+        CALL, RAISE, FOLD;
+    }
 
-
+    public Player(String name){
+        this.name = name;
+    }
 
     public ArrayList<Card> getRankingList()
     {
@@ -58,19 +60,14 @@ public class Player {
         //и забить в аррайлист
     }
 
-    public void setMaxCombo(CombinationRank maxCombo)
-    {
-        this.maximalComboRank = maxCombo;
-    }
-
     public CombinationRank getMaxCombo()
     {
        return maximalComboRank;
     }
 
-    public void setMoney(long money)
+    public void setMaxCombo(CombinationRank maxCombo)
     {
-        this.money = money;
+        this.maximalComboRank = maxCombo;
     }
 
     public long getMoney()
@@ -78,4 +75,16 @@ public class Player {
         return money;
     }
 
+    public void setMoney(long money) {
+        this.money = money;
+    }
+
+    public Decision makeDecision(Game game) {
+        return Decision.values()[new Random().nextInt(Decision.values().length)];
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
