@@ -13,7 +13,8 @@ public class Game {
     private int call;
     private int bank;
 
-    public Game(int blind, Player ... players){
+    public Game(int blind, Player ... players)
+    {
         this.blind = blind;
         deck = new Deck();
         deck.shuffleDeck();
