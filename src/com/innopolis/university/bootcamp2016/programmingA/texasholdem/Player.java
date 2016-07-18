@@ -86,10 +86,21 @@ public class Player{
 
     public Decision makeDecision(Game game)
     {
-
+        System.out.println("Choose your action: ");
         Scanner sc = new Scanner(System.in);
+        int action = Integer.parseInt(sc.nextLine());
+        if(action==1) {
+            return Decision.CALL;
+        }
+        else if(action==2)
+        {
+            return  Decision.FOLD;
+        }
+        else
+        {
+            return  Decision.RAISE;
+        }
 
-        return null;
     }
 
     @Override

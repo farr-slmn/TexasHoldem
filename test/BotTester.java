@@ -2,8 +2,7 @@ import com.innopolis.university.bootcamp2016.programmingA.texasholdem.*;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.PrintStream;
-import java.util.ArrayList;
+
 
 /**
  * Created by mer_e on 18.07.2016.
