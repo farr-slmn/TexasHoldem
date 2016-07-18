@@ -67,6 +67,7 @@ public class Game {
     }
 
     public void preflop(){
+
         for(Player player: currPlayers){
             player.setCards(new Card[]{deck.pullCard(), deck.pullCard()});
         }
