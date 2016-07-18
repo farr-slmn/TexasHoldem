@@ -23,10 +23,9 @@ public class BotTester {
         String userinput = "1 2 3";
         System.setIn(new ByteArrayInputStream(userinput.getBytes(StandardCharsets.UTF_8)));
 
-
         Assert.assertEquals(bot1.difficulty, 1);
         Assert.assertEquals(bot2.difficulty, 2);
         Assert.assertEquals(bot3.difficulty, 3);
-
+        System.setIn(old);
     }
 }
