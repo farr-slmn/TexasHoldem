@@ -16,6 +16,7 @@ public class Game {
     public Game(int blind, Player ... players){
         this.blind = blind;
         deck = new Deck();
+        deck.shuffleDeck();
         call = this.blind;
         if(players.length != 4){
             throw new IllegalArgumentException("Player amount not equal to 4");
