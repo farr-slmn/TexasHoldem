@@ -5,10 +5,21 @@ import java.util.*;
 public class CombinationRank {
 
     public ArrayList<Card> summaryCards;
-    ArrayList<Card> bestCombination;
 
-    public CombinationRank(ArrayList<Card> playerCards, ArrayList<Card> tableCards){
-        bestCombination = new ArrayList<>();
+    public enum Combinations {
+        HIGH_CARD,
+        ONE_PAIR,
+        TWO_PAIR,
+        THREE_OF_A_KIND,
+        STRAIGHT,
+        FLUSH,
+        FULL_HOUSE,
+        FOUR_OF_A_KIND,
+        STRAIGHT_FLUSH,
+        ROYAL_FLUSH
+    }
+
+    public CombinationRank(ArrayList<Card> playerCards, ArrayList<Card> tableCards) {
         summaryCards = new ArrayList<>();
         summaryCards.addAll(playerCards);
         summaryCards.addAll(tableCards);
@@ -18,279 +29,197 @@ public class CombinationRank {
         summaryCards.sort(new Comparator<Card>() {
             @Override
             public int compare(Card o1, Card o2) {
-                return -(o1.getRank().compareTo(o2.getRank()));
+                if (o1.getRank().ordinal() == o2.getRank().ordinal())
+                    return 0;
+                else if (o1.getRank().ordinal() > o2.getRank().ordinal())
+                    return -1;
+                return 1;
             }
         });
     }
 
-    public ArrayList<Card> bestCombination(){
+    public Combinations bestCombination() {
 
-        if (isRoyalFlush(summaryCards))
-        {
-            return bestCombination;
-        }
-        else if (isStraightFlush(summaryCards)){
-            return bestCombination;
-        }
-        else if (isFourOfKind(summaryCards)){
-            return bestCombination;
-        }
-        else if (isFullHouse(summaryCards)){
-            return bestCombination;
-        }
-        else if (isFlush(summaryCards)){
-            return bestCombination;
-        }
-        else if (isStraight(summaryCards)){
-            return bestCombination;
-        }
-        else if (isThreeOfKind(summaryCards)){
-            return bestCombination;
-        }
-        else if (isTwoPair(summaryCards)){
-            return bestCombination;
-        }
-        else if (isOnePair(summaryCards)){
-            return bestCombination;
-        }
-        else if (isHighCard(summaryCards)){
-            return bestCombination;
-        }
-        return bestCombination;
+        if (isRoyalFlush(summaryCards)) {
+            return Combinations.ROYAL_FLUSH;
+        } else if (isStraightFlush(summaryCards)) {
+            return Combinations.STRAIGHT_FLUSH;
+        } else if (isFourOfKind(summaryCards)) {
+            return Combinations.FOUR_OF_A_KIND;
+        } else if (isFullHouse(summaryCards)) {
+            return Combinations.FULL_HOUSE;
+        } else if (isFlush(summaryCards)) {
+            return Combinations.FLUSH;
+        } else if (isStraight(summaryCards)) {
+            return Combinations.STRAIGHT;
+        } else if (isThreeOfKind(summaryCards)) {
+            return Combinations.THREE_OF_A_KIND;
+        } else if (isTwoPair(summaryCards)) {
+            return Combinations.TWO_PAIR;
+        } else if (isOnePair(summaryCards)) {
+            return Combinations.ONE_PAIR;
+        } else
+            return Combinations.HIGH_CARD;
     }
 
-    public boolean isRoyalFlush(ArrayList<Card> summaryCards){
+    public boolean isRoyalFlush(ArrayList<Card> summaryCards) {
 
-        bestCombination.clear();
-        boolean t=true;
+        boolean t = true;
         Card.CardSuitEnum suit = summaryCards.get(0).getSuit();
-        for(Card card : summaryCards){
-            if (card.getSuit().compareTo(suit)!=0){
-                t=false;
+        for (Card card : summaryCards) {
+            if (card.getSuit().compareTo(suit) != 0) {
+                t = false;
             }
         }
-        for(int i=1;i<summaryCards.size();++i){
-            if (summaryCards.get(i).getRank().compareTo(summaryCards.get(i-1).getRank())<=0){
-                t=false;
+        for (int i = 1; i < summaryCards.size(); ++i) {
+            if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
+                t = false;
             }
         }
-        if (t && summaryCards.get(0).getRank().equals(Card.CardRankEnum.ACE)){
-            for(Card card : summaryCards){
-                bestCombination.add(card);
-            }
+        if (t && summaryCards.get(0).getRank().equals(Card.CardRankEnum.ACE) && summaryCards.get(4).getRank().equals(Card.CardRankEnum.CARD_10)) {
+            return true;
         }
-        else t=false;
         return false;
     }
 
-    public boolean isStraightFlush(ArrayList<Card> summaryCards){
-        bestCombination.clear();
-        boolean t=true;
+    public boolean isStraightFlush(ArrayList<Card> summaryCards) {
+
+        boolean t = true;
         Card.CardSuitEnum suit = summaryCards.get(0).getSuit();
-        for(Card card : summaryCards){
-            if (card.getSuit().compareTo(suit)!=0){
-                t=false;
+        for (Card card : summaryCards) {
+            if (card.getSuit().compareTo(suit) != 0) {
+                t = false;
             }
         }
-        for(int i=1;i<summaryCards.size();++i){
-            if (summaryCards.get(i).getRank().compareTo(summaryCards.get(i-1).getRank())<=0){
-                t=false;
-            }
-        }
-        if (t){
-            for(Card card : summaryCards){
-                bestCombination.add(card);
+        for (int i = 1; i < summaryCards.size(); ++i) {
+            if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
+                t = false;
             }
         }
         return t;
     }
 
-    public boolean isFourOfKind(ArrayList<Card> summaryCards){
-        bestCombination.clear();
-        int ans=-1;
+    public boolean isFourOfKind(ArrayList<Card> summaryCards) {
+        int ans = 0;
         Card.CardRankEnum rank = summaryCards.get(0).getRank();
-        for(Card card : summaryCards){
-            if (card.getRank().equals(rank)){
+        for (Card card : summaryCards) {
+            if (card.getRank().equals(rank)) {
                 ans++;
             }
         }
-        if (ans>=4) {
-            for (Card card : summaryCards) {
-                bestCombination.add(card);
-            }
+        if (ans >= 4) {
             return true;
         }
 
-        rank = summaryCards.get(summaryCards.size()-1).getRank();
-        ans=-1;
-        for(Card card : summaryCards){
-            if (card.getRank().equals(rank)){
+        rank = summaryCards.get(summaryCards.size() - 1).getRank();
+        ans = 0;
+        for (Card card : summaryCards) {
+            if (card.getRank().equals(rank)) {
                 ans++;
             }
         }
-        if (ans>=4) {
-            for (Card card : summaryCards) {
-                bestCombination.add(card);
-            }
+        if (ans >= 4) {
             return true;
         }
 
         return false;
     }
 
-    public boolean isFullHouse(ArrayList<Card> summaryCards){
-        bestCombination.clear();
-        int three=-1, two=-1;
+    public boolean isFullHouse(ArrayList<Card> summaryCards) {
+
+        int three = 0, two = 0;
         Card.CardRankEnum rank1 = summaryCards.get(0).getRank();
-        Card.CardRankEnum rank2 = summaryCards.get(summaryCards.size()-1).getRank();
-        for(Card card : summaryCards){
-            if (card.getRank().equals(rank1)){
+        Card.CardRankEnum rank2 = summaryCards.get(summaryCards.size() - 1).getRank();
+        for (Card card : summaryCards) {
+            if (card.getRank().equals(rank1)) {
                 three++;
             }
-            if (card.getRank().equals(rank2)){
+            if (card.getRank().equals(rank2)) {
                 two++;
             }
         }
-        if (three==3 && two==2) {
-            for (Card card : summaryCards) {
-                bestCombination.add(card);
-            }
-            return true;
-        }
-        else
-            return false;
-    }
-
-    public boolean isFlush(ArrayList<Card> summaryCards){
-        bestCombination.clear();
-        boolean t=true;
-        Card.CardRankEnum suit = summaryCards.get(0).getRank();
-        for(Card card : summaryCards){
-            if (!card.getSuit().equals(suit)){
-                t=false;
-            }
-        }
-        if (t){
-            for (Card card : summaryCards) {
-                bestCombination.add(card);
-            }
+        if (three == 3 && two == 2) {
             return true;
         }
         return false;
     }
 
-    public boolean isStraight(ArrayList<Card> summaryCards){
-        bestCombination.clear();
-        boolean t=true;
-        for(int i=1;i<summaryCards.size();++i){
-            if (summaryCards.get(i).getRank().compareTo(summaryCards.get(i-1).getRank())<=0){
-                t=false;
+    public boolean isFlush(ArrayList<Card> summaryCards) {
+        boolean t = true;
+        Card.CardSuitEnum suit = summaryCards.get(0).getSuit();
+        for (Card card : summaryCards) {
+            if (!card.getSuit().equals(suit)) {
+                t = false;
             }
         }
-        if (t){
-            for (Card card : summaryCards) {
-                bestCombination.add(card);
-            }
+        if (t) {
             return true;
         }
         return false;
     }
 
-    public boolean isThreeOfKind(ArrayList<Card> summaryCards){
-        bestCombination.clear();
-        int ans=-1;
-        Card.CardRankEnum rank = summaryCards.get(0).getRank();
-        for(Card card : summaryCards){
-            if (card.getRank().equals(rank)){
+    public boolean isStraight(ArrayList<Card> summaryCards) {
+        boolean t = true;
+        for (int i = 1; i < summaryCards.size(); ++i) {
+            if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
+                t = false;
+            }
+        }
+        return t;
+    }
+
+    public boolean isThreeOfKind(ArrayList<Card> summaryCards) {
+        int ans = 0;
+        Card.CardRankEnum rank = summaryCards.get(1).getRank();
+        for (Card card : summaryCards) {
+            if (card.getRank().equals(rank)) {
                 ans++;
             }
         }
-        if (ans>=3) {
-            for (Card card : summaryCards) {
-                bestCombination.add(card);
-            }
+        if (ans >= 3) {
             return true;
         }
 
-        //last three cards rank comparing
-        ans=-1;
-        rank = summaryCards.get(summaryCards.size()-1).getRank();
-        for(Card card : summaryCards){
-            if (card.getRank().equals(rank)){
+        ans = 0;
+        rank = summaryCards.get(3).getRank();
+        for (Card card : summaryCards) {
+            if (card.getRank().equals(rank)) {
                 ans++;
             }
         }
-        if (ans>=3) {
-            for (Card card : summaryCards) {
-                bestCombination.add(card);
-            }
-            return true;
-        }
-
-        //middle three cards rank comparing
-        ans=-1;
-        rank = summaryCards.get(2).getRank();
-        for(Card card : summaryCards){
-            if (card.getRank().equals(rank)){
-                ans++;
-            }
-        }
-        if (ans>=3) {
-            for (Card card : summaryCards) {
-                bestCombination.add(card);
-            }
+        if (ans >= 3) {
             return true;
         }
 
         return false;
     }
 
-    public boolean isTwoPair(ArrayList<Card> summaryCards){
-        bestCombination.clear();
+    public boolean isTwoPair(ArrayList<Card> summaryCards) {
 
-        if (summaryCards.get(0).getRank().equals(summaryCards.get(1).getRank())){
+        if (summaryCards.get(0).getRank().equals(summaryCards.get(1).getRank())) {
             if (summaryCards.get(2).getRank().equals(summaryCards.get(3).getRank()) ||
-                    summaryCards.get(3).getRank().equals(summaryCards.get(4).getRank())){
-                for (Card card : summaryCards) {
-                    bestCombination.add(card);
-                }
+                    summaryCards.get(3).getRank().equals(summaryCards.get(4).getRank())) {
                 return true;
             }
-        }
-        else if (summaryCards.get(1).getRank().equals(summaryCards.get(2).getRank()) &&
-                summaryCards.get(3).getRank().equals(summaryCards.get(4).getRank())){
-            for (Card card : summaryCards) {
-                bestCombination.add(card);
-            }
+        } else if (summaryCards.get(1).getRank().equals(summaryCards.get(2).getRank()) &&
+                summaryCards.get(3).getRank().equals(summaryCards.get(4).getRank())) {
             return true;
         }
         return false;
     }
 
-    public boolean isOnePair(ArrayList<Card> summaryCards){
-        bestCombination.clear();
-        boolean ans=false;
-        for(int i=0;i<summaryCards.size();++i){
-            for(int j=0;j<summaryCards.size();++j){
-                if (i!=j && summaryCards.get(i).getRank().equals(summaryCards.get(j).getRank())){
-                    ans=true;
+    public boolean isOnePair(ArrayList<Card> summaryCards) {
+        boolean ans = false;
+        for (int i = 0; i < summaryCards.size(); ++i) {
+            for (int j = 0; j < summaryCards.size(); ++j) {
+                if (i != j && summaryCards.get(i).getRank().equals(summaryCards.get(j).getRank())) {
+                    ans = true;
                 }
             }
         }
-        if (ans){
-            for (Card card : summaryCards) {
-                bestCombination.add(card);
-            }
+        if (ans) {
             return true;
         }
         return false;
-    }
-
-    public boolean isHighCard(ArrayList<Card> summaryCards){
-        bestCombination.clear();
-        for (Card card : summaryCards) {
-            bestCombination.add(card);
-        }
-        return true;
     }
 }
