@@ -22,7 +22,6 @@ public class CombinationRankTester {
 
         CombinationRank combo = new CombinationRank(playersCards, tableCards);
 
-
         Assert.assertEquals(combo.isRoyalFlush(combo.summaryCards), false);
 
 
