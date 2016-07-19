@@ -17,22 +17,22 @@ public class Game {
     private int bank;
     GameStage currStage;
 
-    enum GameStage{
-        Preflop, Flop, Turn, River, END;
+    public enum GameStage {
+        START, Preflop, Flop, Turn, River, END;
     }
 
-    public Game(int blind, Player ... players)
-    {
+    public Game(int blind, Player... players) {
         this.blind = blind;
-        if(players.length != 4){
+        if (players.length != 4) {
             throw new IllegalArgumentException("Player amount not equal to 4");
         }
         this.players = new LinkedList<>();
-        for(Player p : players)
+        for (Player p : players)
             this.players.add(p);
+        currStage = GameStage.START;
     }
 
-    public void initializeGame(){
+    public void initializeGame() {
         deck = new Deck();
         deck.shuffleDeck();
         call = this.blind;
@@ -42,23 +42,22 @@ public class Game {
         currStage = GameStage.Preflop;
     }
 
-    public GameStage doStage(){
-        switch (currStage){
+    public GameStage doStage() {
+        switch (currStage) {
+            case START:
+                initializeGame();
+                break;
             case Preflop:
                 preflop();
-                currStage = Flop;
                 break;
             case Flop:
                 flop();
-                currStage = Turn;
                 break;
             case Turn:
                 turn();
-                currStage = River;
                 break;
             case River:
                 river();
-                currStage = END;
                 break;
             default:
                 break;
@@ -66,36 +65,39 @@ public class Game {
         return currStage;
     }
 
-    public void preflop(){
+    public void preflop() {
 
-        for(Player player: currPlayers){
+        for (Player player : currPlayers) {
             player.setCards(new Card[]{deck.pullCard(), deck.pullCard()});
         }
+        currStage = Flop;
     }
 
-    public void flop(){
-        for(Player player : currPlayers)
-        switch (player.makeDecision(this)){
-            case FOLD:
-                System.out.println(player+" FOLDS");
-                break;
-            case CALL:
-                System.out.println(player+" CALLS");
-                break;
-            case RAISE:
-                System.out.println(player+" RAISES");
-                break;
-            default:
-                System.out.println("DUNNO WHAT DOES "+player);
-        }
+    public void flop() {
+        for (Player player : currPlayers)
+            if (player != null)
+                switch (player.makeDecision(this)) {
+                    case FOLD:
+                        System.out.println(player + " FOLDS");
+                        break;
+                    case CALL:
+                        System.out.println(player + " CALLS");
+                        break;
+                    case RAISE:
+                        System.out.println(player + " RAISES");
+                        break;
+                    default:
+                        System.out.println("DUNNO WHAT DOES " + player);
+                }
+        currStage = Turn;
     }
 
-    public void turn(){
-
+    public void turn() {
+        currStage = River;
     }
 
-    public void river(){
-
+    public void river() {
+        currStage = River;
     }
 
     public ArrayList<Card> getTableCards() {
