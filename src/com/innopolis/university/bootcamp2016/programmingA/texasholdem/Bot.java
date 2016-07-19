@@ -30,9 +30,31 @@ public class Bot extends Player
         this.difficulty = difficulty;
     }
 
-    public Decision makeDesion()
+    public Decision makeDesion(Game game)
     {
-        return Decision.values()[new Random().nextInt(Decision.values().length)];
+        if(this.difficulty == 2)
+        {
+            return mediumLevel();
+        }
+          else if (this.difficulty == 3)
+        {
+            return  hardLevel(game);
+        }
+        else
+        {
+            return Decision.values()[new Random().nextInt(Decision.values().length)];
+        }
+    }
+
+
+    public Decision mediumLevel()
+    {
+        return Decision.values()[new Random().nextInt(Decision.values().length-1)];
+    }
+
+    public Decision hardLevel(Game game)
+    {
+        return null;
     }
 
 }

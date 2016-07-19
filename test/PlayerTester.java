@@ -1,4 +1,5 @@
 import com.innopolis.university.bootcamp2016.programmingA.texasholdem.Bot;
+import com.innopolis.university.bootcamp2016.programmingA.texasholdem.Card;
 import com.innopolis.university.bootcamp2016.programmingA.texasholdem.Game;
 import com.innopolis.university.bootcamp2016.programmingA.texasholdem.Player;
 import org.junit.Assert;
@@ -84,6 +85,22 @@ public class PlayerTester
 
 
         Assert.assertEquals(player.getMoney(), 10000);
+
+
+
+    }
+
+    @Test
+    public void testCardsSetting(){
+
+
+
+        Player player = new Player();
+        player.setCards(new Card[]{new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.CARD_10), new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.CARD_9)});
+
+
+
+        Assert.assertEquals(player.getCards().length, 2);
 
 
 
