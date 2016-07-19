@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class DeckTester {
     @Test
-    public void testy(){
+    public void testShuffler(){
         StringBuffer sb = new StringBuffer();
         System.setOut(new PrintStream(System.out) {
             public void println(String s) {
@@ -29,4 +29,20 @@ public class DeckTester {
 
 
     }
+
+    @Test
+    public void testSize(){
+
+        Deck deck = new Deck();
+        ArrayList<Card> was = deck.getCards();
+        deck.shuffleDeck();
+        ArrayList<Card> become = deck.getCards();
+
+
+
+        Assert.assertEquals(was.size(), become.size());
+
+
+    }
+
 }
