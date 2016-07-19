@@ -19,13 +19,11 @@ public class BotTester {
         Bot bot1 = new Bot("Bart", 1);
         Bot bot2 = new Bot("Homer", 2);
         Bot bot3 = new Bot("Mardge", 3);
-        InputStream old = System.in;
-        String userinput = "1 2 3";
-        System.setIn(new ByteArrayInputStream(userinput.getBytes(StandardCharsets.UTF_8)));
+
 
         Assert.assertEquals(bot1.difficulty, 1);
         Assert.assertEquals(bot2.difficulty, 2);
         Assert.assertEquals(bot3.difficulty, 3);
-        System.setIn(old);
+
     }
 }

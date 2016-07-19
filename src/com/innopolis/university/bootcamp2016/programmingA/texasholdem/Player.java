@@ -12,7 +12,7 @@ public class Player{
     private CombinationRank maximalComboRank = null;
     private long money;
 
-    enum Decision
+    public enum Decision
     {
         CALL, RAISE, FOLD;
     }

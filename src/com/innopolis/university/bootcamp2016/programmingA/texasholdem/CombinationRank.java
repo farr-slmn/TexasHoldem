@@ -4,7 +4,7 @@ import java.util.*;
 
 public class CombinationRank {
 
-    ArrayList<Card> summaryCards;
+    public ArrayList<Card> summaryCards;
     ArrayList<Card> bestCombination;
 
     public CombinationRank(ArrayList<Card> playerCards, ArrayList<Card> tableCards){
