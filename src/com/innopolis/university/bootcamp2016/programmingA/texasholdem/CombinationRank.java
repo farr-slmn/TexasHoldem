@@ -139,7 +139,6 @@ public class CombinationRank {
     }
 
     public boolean isFullHouse(ArrayList<Card> summaryCards) {
-        //нужна сортировка
         int three = 0, two = 0;
         Card.CardRankEnum rank1 = summaryCards.get(0).getRank();
         Card.CardRankEnum rank2 = summaryCards.get(summaryCards.size() - 1).getRank();
@@ -151,7 +150,7 @@ public class CombinationRank {
                 two++;
             }
         }
-        if (three == 3 && two == 2) {
+        if (three == 3 && two == 2 || three == 2 && two == 3) {
             return true;
         }
         return false;
