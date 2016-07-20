@@ -145,8 +145,6 @@ public class CombinationRankTester {
         CombinationRank combo = new CombinationRank(playersCards, tableCards);
 
         Assert.assertEquals(combo.isFullHouse(combo.summaryCards), true);
-
-        //не работает ибо нужна сортировка суммари кардс
     }
 
     @Test
@@ -181,8 +179,6 @@ public class CombinationRankTester {
         CombinationRank combo = new CombinationRank(playersCards, tableCards);
 
         Assert.assertEquals(combo.isStraight(combo.summaryCards), true);
-
-        // АСЕ считается как самая высокая и как самая низкая нужно указать это в коде
     }
 
 }

@@ -29,11 +29,7 @@ public class CombinationRank {
         summaryCards.sort(new Comparator<Card>() {
             @Override
             public int compare(Card o1, Card o2) {
-                if (o1.getRank().ordinal() == o2.getRank().ordinal())
-                    return 0;
-                else if (o1.getRank().ordinal() > o2.getRank().ordinal())
-                    return -1;
-                return 1;
+                return -o1.getRank().compareTo(o2.getRank());
             }
         });
     }
@@ -92,9 +88,25 @@ public class CombinationRank {
                 t = false;
             }
         }
+        if (!t){
+            return false;
+        }
         for (int i = 1; i < summaryCards.size(); ++i) {
             if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
                 t = false;
+            }
+        }
+        if (t){
+            return true;
+        }
+        else{
+            t = true;
+        }
+        if (summaryCards.contains(Card.CardRankEnum.ACE) && summaryCards.get(1).getRank().equals(Card.CardRankEnum.CARD_5)){
+            for (int i = 2; i < summaryCards.size(); ++i) {
+                if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
+                    t = false;
+                }
             }
         }
         return t;
@@ -127,7 +139,6 @@ public class CombinationRank {
     }
 
     public boolean isFullHouse(ArrayList<Card> summaryCards) {
-        //нужна сортировка
         int three = 0, two = 0;
         Card.CardRankEnum rank1 = summaryCards.get(0).getRank();
         Card.CardRankEnum rank2 = summaryCards.get(summaryCards.size() - 1).getRank();
@@ -139,7 +150,7 @@ public class CombinationRank {
                 two++;
             }
         }
-        if (three == 3 && two == 2) {
+        if (three == 3 && two == 2 || three == 2 && two == 3) {
             return true;
         }
         return false;
@@ -164,6 +175,19 @@ public class CombinationRank {
         for (int i = 1; i < summaryCards.size(); ++i) {
             if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
                 t = false;
+            }
+        }
+        if (t){
+            return true;
+        }
+        else{
+            t = true;
+        }
+        if (summaryCards.contains(Card.CardRankEnum.ACE) && summaryCards.get(1).getRank().equals(Card.CardRankEnum.CARD_5)){
+            for (int i = 2; i < summaryCards.size(); ++i) {
+                if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
+                    t = false;
+                }
             }
         }
         return t;
