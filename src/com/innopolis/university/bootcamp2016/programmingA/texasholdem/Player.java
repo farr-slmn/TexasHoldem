@@ -91,7 +91,7 @@ public class Player{
 
     public Decision makeDecision(Game game)
     {
-        System.out.println("Choose your action: ");
+        System.out.println(name+" choose your action: ");
         Scanner sc = new Scanner(System.in);
         int action = Integer.parseInt(sc.nextLine());
         if(action==1) {

@@ -20,8 +20,5 @@ public class Utils {
      * @param linkedList
      * @return
      */
-    public static Player passTurn(LinkedList<Player> linkedList){
-        linkedList.add(linkedList.removeFirst());
-        return  linkedList.getFirst();
-    }
+
 }

@@ -48,22 +48,24 @@ public class Game {
             int index = players.indexOf(player);
             if (index > -1) {
                 if (buttonId == index) {
-                    return true;
+                    return false;
                 }
                 if (Utils.nextId(players, buttonId) == index) {
-                    return player.getMoney() >= blind / 2;
+                    return player.getMoney() < blind / 2;
                 }
                 if (Utils.nextId(players, buttonId + 1) == index) {
-                    return player.getMoney() >= blind;
+                    return player.getMoney() < blind;
                 }
-                return player.getMoney() >= call;
+                return player.getMoney() < call;
             }
-            return player.getMoney() > 10;
+            return player.getMoney() < blind;
         });
+        if (players.size() < 2)
+            throw new IllegalStateException();
         buttonId = players.indexOf(button);
         currPlayers = new LinkedList<>(players);
         for (int i = 0; i < buttonId; i++)
-            Utils.passTurn(currPlayers);
+            passTurn(currPlayers);
         tableCards = new ArrayList<>();
         currStage = GameStage.Preflop;
     }
@@ -92,25 +94,21 @@ public class Game {
     }
 
     public void preflop() {
-        Utils.passTurn(currPlayers);
+        passTurn(currPlayers);
         currPlayers.getFirst().setMoney(currPlayers.getFirst().getMoney() - blind / 2);
         bank += blind / 2;
-        Utils.passTurn(currPlayers);
+        passTurn(currPlayers);
         currPlayers.getFirst().setMoney(currPlayers.getFirst().getMoney() - blind);
         bank += blind;
         for (Player player : currPlayers) {
             player.setCards(new Card[]{deck.pullCard(), deck.pullCard()});
         }
-        for (Player player : currPlayers)
-            if (player != null)
-                processDecision(player);
+        currPlayers.forEach(this::processDecision);
         currStage = Flop;
     }
 
     public void flop() {
-        for (Player player : currPlayers)
-            if (player != null)
-                processDecision(player);
+        currPlayers.forEach(this::processDecision);
         currStage = Turn;
     }
 
@@ -122,10 +120,11 @@ public class Game {
         currStage = END;
     }
 
-    public void processDecision(Player player){
+    public void processDecision(Player player) {
         switch (player.makeDecision(this)) {
             case FOLD:
                 System.out.println(player + " FOLDS");
+                //currPlayers.remove(player);
                 break;
             case CALL:
                 System.out.println(player + " CALLS");
@@ -170,4 +169,8 @@ public class Game {
         return blind;
     }
 
+    private static Player passTurn(LinkedList<Player> linkedList){
+        linkedList.add(linkedList.removeFirst());
+        return  linkedList.getFirst();
+    }
 }
