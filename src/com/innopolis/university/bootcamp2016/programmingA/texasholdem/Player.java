@@ -13,7 +13,7 @@ public class Player{
 
     public enum Decision
     {
-        CALL, RAISE, FOLD, CHECK
+        CALL, RAISE, CHECK, FOLD
     }
 
     public Player(String name, long money)

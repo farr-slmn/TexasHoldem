@@ -12,25 +12,50 @@ import java.util.Scanner;
 
 public class GameTester {
     @Test
-    public void testy(){
-        StringBuffer sb = new StringBuffer();
-        System.setOut(new PrintStream(System.out) {
-            public void println(String s) {
-                sb.append(s);
-                super.println(s);
-            }
-        });
+    public void testFold(){
+
         InputStream old = System.in;
-        String userinput = "fold";
-        Game game = new Game(50000, new Bot("Tamara"), new Player("John", Long.parseLong("646866556656")), new Player("Albert", 53), new Player("Zak", 79465));
+        String userinput = "2";
+        Game game = new Game(50000, new Bot("Tamara"), new Player("John", 646866556656l), new Player("Albert", 53), new Player("Zak", 79465));
         game.initializeGame();
         int was = game.getCurrPlayers().size();
+
         System.setIn(new ByteArrayInputStream(userinput.getBytes(StandardCharsets.UTF_8)));
-        while(game.runNextStage() != Game.GameStage.END) {
-        }
+
+
+        game.processDecision(game.getCurrPlayer());
+
         int become = game.getCurrPlayers().size();
-        become += sb.toString().split("FOLDS").length - 1;
-        Assert.assertEquals(was, become);
+        Assert.assertEquals(was, become+1);
         System.setIn(old);
     }
+
+    @Test
+    public void testPassTurn(){
+        StringBuffer sb = new StringBuffer();
+
+        InputStream old = System.in;
+        String userinput = "2";
+        Game game = new Game(50000, new Bot("Tamara"), new Player("John", 646866556656l), new Player("Albert", 53), new Player("Zak", 79465));
+        game.initializeGame();
+
+        Player curPlayerWas = game.getCurrPlayer();
+        game.passTurn(game.getCurrPlayers());
+        Player curPlayerBecome = game.getCurrPlayer();
+
+        Assert.assertNotEquals(curPlayerWas, curPlayerBecome);
+
+    }
+
+    @Test
+    public void testInitializer()
+    {
+        Game game = new Game(50000, new Bot("Tamara"), new Player("John", 646866556656l), new Player("Albert", 53), new Player("Zak", 79465));
+        game.initializeGame();
+
+        Assert.assertNotEquals(game.getPlayers(), null);
+        Assert.assertNotEquals(game.getCurrPlayer(), null);
+
+    }
+
 }

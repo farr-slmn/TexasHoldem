@@ -12,6 +12,7 @@ public class Game {
     private Deck deck;
     private LinkedList<Player> players;
     private LinkedList<Player> currPlayers;
+    private Iterator<Player> currPlayersIterator;
     private ArrayList<Card> tableCards;
     private int buttonId;
     private int call;
@@ -103,12 +104,18 @@ public class Game {
         for (Player player : currPlayers) {
             player.setCards(new Card[]{deck.pullCard(), deck.pullCard()});
         }
-        currPlayers.forEach(this::processDecision);
+        currPlayersIterator = currPlayers.iterator();
+        while (currPlayersIterator.hasNext())
+            processDecision(currPlayersIterator.next());
+        currPlayersIterator = null;
         currStage = Flop;
     }
 
     public void flop() {
-        currPlayers.forEach(this::processDecision);
+        currPlayersIterator = currPlayers.iterator();
+        while (currPlayersIterator.hasNext())
+            processDecision(currPlayersIterator.next());
+        currPlayersIterator = null;
         currStage = Turn;
     }
 
@@ -121,10 +128,14 @@ public class Game {
     }
 
     public void processDecision(Player player) {
+        if(currPlayersIterator == null){
+            currPlayersIterator = currPlayers.iterator();
+            while (currPlayersIterator.hasNext() && !currPlayersIterator.next().equals(player));
+        }
         switch (player.makeDecision(this)) {
             case FOLD:
                 System.out.println(player + " FOLDS");
-                //currPlayers.remove(player);
+                currPlayersIterator.remove();
                 break;
             case CALL:
                 System.out.println(player + " CALLS");
@@ -169,8 +180,8 @@ public class Game {
         return blind;
     }
 
-    private static Player passTurn(LinkedList<Player> linkedList){
+    public static Player passTurn(LinkedList<Player> linkedList) {
         linkedList.add(linkedList.removeFirst());
-        return  linkedList.getFirst();
+        return linkedList.getFirst();
     }
 }
