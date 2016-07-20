@@ -1,9 +1,6 @@
 package com.innopolis.university.bootcamp2016.programmingA.texasholdem;
 
-
-import java.lang.reflect.Method;
 import java.util.*;
-import java.util.function.Predicate;
 
 import static com.innopolis.university.bootcamp2016.programmingA.texasholdem.Game.GameStage.*;
 
@@ -25,8 +22,8 @@ public class Game {
 
     public Game(int blind, Player... players) {
         this.blind = blind;
-        if (players.length != 4) {
-            throw new IllegalArgumentException("Player amount not equal to 4");
+        if (players.length < 2) {
+            throw new IllegalArgumentException("Player amount is less than 2");
         }
         this.players = new LinkedList<>();
         for (Player p : players)
@@ -65,8 +62,9 @@ public class Game {
             throw new IllegalStateException();
         buttonId = players.indexOf(button);
         currPlayers = new LinkedList<>(players);
-        for (int i = 0; i < buttonId; i++)
-            passTurn(currPlayers);
+        for (int i = 0; i < buttonId; i++) {
+            currPlayers.add(currPlayers.removeFirst());
+        }
         tableCards = new ArrayList<>();
         currStage = GameStage.Preflop;
     }
@@ -95,15 +93,16 @@ public class Game {
     }
 
     public void preflop() {
-        passTurn(currPlayers);
+        currPlayers.add(currPlayers.removeFirst());
         currPlayers.getFirst().setMoney(currPlayers.getFirst().getMoney() - blind / 2);
         bank += blind / 2;
-        passTurn(currPlayers);
+        currPlayers.add(currPlayers.removeFirst());
         currPlayers.getFirst().setMoney(currPlayers.getFirst().getMoney() - blind);
         bank += blind;
         for (Player player : currPlayers) {
             player.setCards(new Card[]{deck.pullCard(), deck.pullCard()});
         }
+        currPlayers.add(currPlayers.removeFirst());
         currPlayersIterator = currPlayers.iterator();
         while (currPlayersIterator.hasNext())
             processDecision(currPlayersIterator.next());
@@ -112,6 +111,15 @@ public class Game {
     }
 
     public void flop() {
+        tableCards.add(deck.pullCard());
+        tableCards.add(deck.pullCard());
+        tableCards.add(deck.pullCard());
+        while(true){
+            if(currPlayers.getFirst().equals(players.get(buttonId))) {
+                currPlayers.add(currPlayers.removeFirst());
+                break;
+            }
+        }
         currPlayersIterator = currPlayers.iterator();
         while (currPlayersIterator.hasNext())
             processDecision(currPlayersIterator.next());
@@ -120,10 +128,21 @@ public class Game {
     }
 
     public void turn() {
+        tableCards.add(deck.pullCard());
+        currPlayersIterator = currPlayers.iterator();
+        while (currPlayersIterator.hasNext())
+            processDecision(currPlayersIterator.next());
+        currPlayersIterator = null;
         currStage = River;
     }
 
     public void river() {
+        tableCards.add(deck.pullCard());
+        currPlayersIterator = currPlayers.iterator();
+        while (currPlayersIterator.hasNext())
+            processDecision(currPlayersIterator.next());
+        currPlayersIterator = null;
+        //find winner
         currStage = END;
     }
 
@@ -180,8 +199,4 @@ public class Game {
         return blind;
     }
 
-    public static Player passTurn(LinkedList<Player> linkedList) {
-        linkedList.add(linkedList.removeFirst());
-        return linkedList.getFirst();
-    }
 }

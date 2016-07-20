@@ -31,23 +31,6 @@ public class GameTester {
     }
 
     @Test
-    public void testPassTurn(){
-        StringBuffer sb = new StringBuffer();
-
-        InputStream old = System.in;
-        String userinput = "2";
-        Game game = new Game(50000, new Bot("Tamara"), new Player("John", 646866556656l), new Player("Albert", 53), new Player("Zak", 79465));
-        game.initializeGame();
-
-        Player curPlayerWas = game.getCurrPlayer();
-        game.passTurn(game.getCurrPlayers());
-        Player curPlayerBecome = game.getCurrPlayer();
-
-        Assert.assertNotEquals(curPlayerWas, curPlayerBecome);
-
-    }
-
-    @Test
     public void testInitializer()
     {
         Game game = new Game(50000, new Bot("Tamara"), new Player("John", 646866556656l), new Player("Albert", 53), new Player("Zak", 79465));
