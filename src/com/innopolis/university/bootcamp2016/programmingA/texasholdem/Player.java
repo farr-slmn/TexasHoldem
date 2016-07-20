@@ -1,7 +1,6 @@
 package com.innopolis.university.bootcamp2016.programmingA.texasholdem;
 
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Player{
@@ -14,17 +13,23 @@ public class Player{
 
     public enum Decision
     {
-        CALL, RAISE, FOLD;
+        CALL, RAISE, FOLD, CHECK
     }
 
-    public Player()
-    {
-
-    }
-
-    public Player(String name)
+    public Player(String name, long money)
     {
         this.name = name;
+        this.money = money;
+    }
+
+    public Player(String name){
+        this.name = name;
+        money = 1000000;
+    }
+
+    public Player(){
+        name = "Default";
+        money = 1000000;
     }
 
     public ArrayList<Card> getRankedList()
