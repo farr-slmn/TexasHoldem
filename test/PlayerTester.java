@@ -64,7 +64,7 @@ public class PlayerTester
         Player player = new Player();
 
         InputStream old = System.in;
-        String userinput = "3";
+        String userinput = "2";
         System.setIn(new ByteArrayInputStream(userinput.getBytes(StandardCharsets.UTF_8)));
 
 
@@ -73,6 +73,10 @@ public class PlayerTester
         System.setIn(old);
 
     }
+
+
+
+
 
     @Test
     public void testMoneySetting(){

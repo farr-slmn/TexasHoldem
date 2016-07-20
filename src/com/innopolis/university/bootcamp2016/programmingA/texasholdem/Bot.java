@@ -9,18 +9,14 @@ public class Bot extends Player
 {
    public int difficulty; // 1 - easy, 2 - medium, 3 - hard
 
-    public Bot()
-    {
-
-    }
-
     public Bot(String bart)
     {
-        super(bart);
+        super(bart, 1000000);
     }
+
     public Bot(String bart, int difficulty)
     {
-        super(bart);
+        super(bart, 1000000);
         this.difficulty = difficulty;
     }
 
