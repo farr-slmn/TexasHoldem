@@ -168,6 +168,10 @@ public class Game {
         }
     }
 
+    public boolean findWinner(){
+        return true;
+    }
+
     public LinkedList<Player> getCurrPlayers() {
         return currPlayers;
     }
