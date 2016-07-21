@@ -7,11 +7,11 @@ import static com.innopolis.university.bootcamp2016.programmingA.texasholdem.Com
 
 public class Game {
     final int blind;
-    Deck deck;
-    LinkedList<Player> players;
-    LinkedList<Player> currPlayers;
-    Iterator<Player> currPlayersIterator;
-    ArrayList<Card> tableCards;
+    public Deck deck;
+    public LinkedList<Player> players;
+    public LinkedList<Player> currPlayers;
+    public  Iterator<Player> currPlayersIterator;
+    public ArrayList<Card> tableCards;
     int buttonId;
     int call;
     int bank;
