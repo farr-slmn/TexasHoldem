@@ -17,18 +17,11 @@ public class Deck {
         cards = new ArrayList<>();
         deckStack = new Stack<>();
 
-        for(Card.CardRankEnum rank : Card.CardRankEnum.values())
-        {
-            for(Card.CardSuitEnum suit : Card.CardSuitEnum.values())
-            {
-                cards.add(new Card(suit,rank));
+        for(Card.CardRankEnum rank : Card.CardRankEnum.values()) {
+            for (Card.CardSuitEnum suit : Card.CardSuitEnum.values()) {
+                cards.add(new Card(suit, rank));
             }
         }
-
-
-
-
-
     }
 
     public void shuffleDeck()
