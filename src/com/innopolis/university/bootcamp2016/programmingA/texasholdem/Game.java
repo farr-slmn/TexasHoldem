@@ -61,8 +61,11 @@ public class Game {
             }
             return player.getMoney() < blind;
         });
-        if (players.size() < 2)
-            throw new IllegalStateException();
+        if (players.size() < 2) {
+            currStage = GameStage.END;
+            return;
+            //throw new IllegalStateException();
+        }
         buttonId = players.indexOf(button);
         currPlayers = new LinkedList<>(players);
         for (int i = 0; i < buttonId; i++) {
