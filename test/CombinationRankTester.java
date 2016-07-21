@@ -138,7 +138,7 @@ public class CombinationRankTester {
         playersCards.add(new Card(Card.CardSuitEnum.SPADES, Card.CardRankEnum.CARD_10));
         playersCards.add(new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.CARD_10));
         ArrayList<Card> tableCards = new ArrayList<>();
-        tableCards.add(new Card(Card.CardSuitEnum.DIAMONDS, Card.CardRankEnum.CARD_10));
+        tableCards.add(new Card(Card.CardSuitEnum.DIAMONDS, Card.CardRankEnum.KING));
         tableCards.add(new Card(Card.CardSuitEnum.HEARTS, Card.CardRankEnum.KING));
         tableCards.add(new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.KING));
 
@@ -180,5 +180,7 @@ public class CombinationRankTester {
 
         Assert.assertEquals(combo.isStraight(combo.summaryCards), true);
     }
+
+
 
 }
