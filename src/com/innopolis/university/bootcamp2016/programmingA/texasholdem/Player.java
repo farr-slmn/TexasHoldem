@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Player{
     private String name;
-    private Card[] cards = new Card[2];
+    private ArrayList<Card> cards = new ArrayList<Card>(2);
     private Card higestCard = null;
     private ArrayList<Card> rankedList = null;
     private CombinationRank maximalComboRank = null;
@@ -48,12 +48,12 @@ public class Player{
         //и забить в аррайлист
     }
 
-    public Card[] getCards()
+    public ArrayList<Card> getCards()
     {
         return cards;
     }
 
-    public void setCards(Card[] cards)
+    public void setCards(ArrayList<Card> cards)
     {
         this.cards = cards;
     }

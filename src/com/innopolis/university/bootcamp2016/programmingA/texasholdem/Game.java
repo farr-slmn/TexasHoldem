@@ -14,7 +14,7 @@ public class Game {
     int buttonId;
     int call;
     int bank;
-    GameStage currStage;
+    public GameStage currStage;
 
     public enum GameStage {
         START, Preflop, Flop, Turn, River, END;

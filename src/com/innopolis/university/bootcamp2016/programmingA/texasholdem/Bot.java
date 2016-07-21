@@ -50,7 +50,10 @@ public class Bot extends Player
 
     public Decision hardLevel(Game game)
     {
-        return null;
+        AiBotDecision ai = new AiBotDecision(game, this);
+
+        return ai.getDecision();
+
     }
 
 }
