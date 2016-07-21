@@ -28,23 +28,29 @@ public class Bot extends Player
 
     public Decision makeDecision(Game game)
     {
+        Decision decision;
         if(this.difficulty == 2)
         {
-            return mediumLevel();
+
+            decision = mediumLevel();
         }
           else if (this.difficulty == 3)
         {
-            return  hardLevel(game);
+            decision = hardLevel(game);
         }
         else
         {
-            return Decision.values()[new Random().nextInt(Decision.values().length)];
+            decision = Decision.values()[new Random().nextInt(Decision.values().length)];
         }
+        if(Decision.RAISE.equals(decision))
+            raise = new Random().nextInt((int)(getMoney() - game.call))+ game.call + 1;
+        return decision;
     }
 
 
     public Decision mediumLevel()
     {
+
         return Decision.values()[new Random().nextInt(Decision.values().length-1)];
     }
 

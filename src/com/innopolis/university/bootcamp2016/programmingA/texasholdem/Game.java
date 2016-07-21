@@ -11,7 +11,7 @@ public class Game {
     public Deck deck;
     public LinkedList<Player> players;
     public LinkedList<Player> currPlayers;
-    public  Iterator<Player> currPlayersIterator;
+    public Iterator<Player> currPlayersIterator;
     public ArrayList<Card> tableCards;
     int buttonId;
     int call;
@@ -186,9 +186,14 @@ public class Game {
                 break;
             case CALL:
                 System.out.println(player + " CALLS");
+                player.takeMoney(call);
+                bank += call;
                 break;
             case RAISE:
-                System.out.println(player + " RAISES for "+ RAISE.raise);
+                System.out.println(player + " RAISES for " + player.getRaise());
+                player.takeMoney(player.getRaise());
+                call = (int)player.getRaise();
+                bank += call;
                 break;
             case CHECK:
                 System.out.println(player + " CHECKS");
@@ -203,8 +208,8 @@ public class Game {
         for (Player p : currPlayers) {
             plComb.put(p, new CombinationRank(new ArrayList<Card>(p.getCards()), tableCards).bestCombination());
         }
-        for(Player ah : currPlayers){
-            System.out.print(ah.toString()+" : "+ah.getCards()+" , ");
+        for (Player ah : currPlayers) {
+            System.out.print(ah.toString() + " : " + ah.getCards() + " , ");
             System.out.println(tableCards.toString());
         }
         ArrayList<Map.Entry<Player, Combinations>> sortedList = new ArrayList<>(plComb.entrySet());
@@ -216,15 +221,18 @@ public class Game {
             }
         }
         System.out.println(topComb);
-        if (lastWinners.size() == 1)
+        if (lastWinners.size() == 1) {
             System.out.println(lastWinners.get(0).toString() + " is a winner!");
-        else {
+            lastWinners.get(0).giveMoney(bank);
+        } else {
             System.out.print(lastWinners.get(0).toString() + " [" + plComb.get(lastWinners.get(0)) + "]");
             for (int i = 1; i < lastWinners.size(); i++) {
                 System.out.print(", " + lastWinners.get(i).toString() + " [" + plComb.get(lastWinners.get(i)) + "]");
+                lastWinners.get(i).giveMoney(bank/lastWinners.size());
             }
             System.out.println(" are winners!");
         }
+        System.out.println("Winning sum is "+bank/lastWinners.size());
         return true;
     }
 
