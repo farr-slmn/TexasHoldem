@@ -9,8 +9,8 @@ import java.util.Stack;
  * Created by User on 17.07.2016.
  */
 public class Deck {
-    private ArrayList<Card> cards;
-    private Stack<Card> deckStack;
+    public ArrayList<Card> cards;
+    public Stack<Card> deckStack;
 
     public Deck()
     {
