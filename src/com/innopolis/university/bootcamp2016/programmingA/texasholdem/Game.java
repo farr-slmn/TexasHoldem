@@ -4,6 +4,7 @@ import java.util.*;
 
 import static com.innopolis.university.bootcamp2016.programmingA.texasholdem.Game.GameStage.*;
 import static com.innopolis.university.bootcamp2016.programmingA.texasholdem.CombinationRank.*;
+import static com.innopolis.university.bootcamp2016.programmingA.texasholdem.Player.Decision.*;
 
 public class Game {
     final int blind;
@@ -105,7 +106,7 @@ public class Game {
         currPlayers.getFirst().setMoney(currPlayers.getFirst().getMoney() - blind);
         bank += blind;
         for (Player player : currPlayers) {
-            player.setCards(new Card[]{deck.pullCard(), deck.pullCard()});
+            player.setCards(deck.pullCard(), deck.pullCard());
         }
         currPlayers.add(currPlayers.removeFirst());
         currPlayersIterator = currPlayers.iterator();
@@ -187,7 +188,7 @@ public class Game {
                 System.out.println(player + " CALLS");
                 break;
             case RAISE:
-                System.out.println(player + " RAISES");
+                System.out.println(player + " RAISES for "+ RAISE.raise);
                 break;
             case CHECK:
                 System.out.println(player + " CHECKS");
@@ -200,10 +201,10 @@ public class Game {
     public boolean doWinner() {
         HashMap<Player, Combinations> plComb = new HashMap<>();
         for (Player p : currPlayers) {
-            plComb.put(p, new CombinationRank(new ArrayList<Card>(Arrays.asList(p.getCards())), tableCards).bestCombination());
+            plComb.put(p, new CombinationRank(new ArrayList<Card>(p.getCards()), tableCards).bestCombination());
         }
         for(Player ah : currPlayers){
-            System.out.print(ah.toString()+" : "+Arrays.toString(ah.getCards())+" , ");
+            System.out.print(ah.toString()+" : "+ah.getCards()+" , ");
             System.out.println(tableCards.toString());
         }
         ArrayList<Map.Entry<Player, Combinations>> sortedList = new ArrayList<>(plComb.entrySet());

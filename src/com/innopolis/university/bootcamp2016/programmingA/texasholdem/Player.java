@@ -1,7 +1,10 @@
 package com.innopolis.university.bootcamp2016.programmingA.texasholdem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+
+import static com.innopolis.university.bootcamp2016.programmingA.texasholdem.Player.Decision.RAISE;
 
 public class Player{
     private String name;
@@ -10,10 +13,16 @@ public class Player{
     private ArrayList<Card> rankedList = null;
     private CombinationRank maximalComboRank = null;
     private long money;
+    private long raise;
 
     public enum Decision
     {
-        CALL, RAISE, CHECK, FOLD
+        CALL, RAISE(), CHECK, FOLD;
+        int raise;
+
+        public void setRaise(int raise) {
+            this.raise = raise;
+        }
     }
 
     public Player(String name, long money)
@@ -53,9 +62,9 @@ public class Player{
         return cards;
     }
 
-    public void setCards(ArrayList<Card> cards)
+    public void setCards(Card ... cards)
     {
-        this.cards = cards;
+        this.cards = new ArrayList<>(Arrays.asList(cards));
     }
 
     public Card getHighestCard()
@@ -103,7 +112,10 @@ public class Player{
         }
         else
         {
-            return  Decision.RAISE;
+            Decision d = Decision.RAISE;
+            d.setRaise(200);
+            RAISE.setRaise(200);
+            return RAISE;
         }
 
     }

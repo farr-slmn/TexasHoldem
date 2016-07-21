@@ -104,7 +104,7 @@ public class PlayerTester
 
 
 
-        Assert.assertEquals(player.getCards().length, 2);
+        Assert.assertEquals(player.getCards().size(), 2);
 
 
 
