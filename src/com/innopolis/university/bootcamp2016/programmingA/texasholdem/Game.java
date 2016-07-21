@@ -5,15 +5,15 @@ import java.util.*;
 import static com.innopolis.university.bootcamp2016.programmingA.texasholdem.Game.GameStage.*;
 
 public class Game {
-    private final int blind;
-    private Deck deck;
-    private LinkedList<Player> players;
-    private LinkedList<Player> currPlayers;
-    private Iterator<Player> currPlayersIterator;
-    private ArrayList<Card> tableCards;
-    private int buttonId;
-    private int call;
-    private int bank;
+    final int blind;
+    Deck deck;
+    LinkedList<Player> players;
+    LinkedList<Player> currPlayers;
+    Iterator<Player> currPlayersIterator;
+    ArrayList<Card> tableCards;
+    int buttonId;
+    int call;
+    int bank;
     GameStage currStage;
 
     public enum GameStage {
@@ -147,10 +147,8 @@ public class Game {
     }
 
     public void processDecision(Player player) {
-        if(currPlayersIterator == null){
-            currPlayersIterator = currPlayers.iterator();
-            while (currPlayersIterator.hasNext() && !currPlayersIterator.next().equals(player));
-        }
+        if(currPlayersIterator == null)
+            throw new NullPointerException();
         switch (player.makeDecision(this)) {
             case FOLD:
                 System.out.println(player + " FOLDS");
@@ -162,13 +160,12 @@ public class Game {
             case RAISE:
                 System.out.println(player + " RAISES");
                 break;
+            case CHECK:
+                System.out.println(player + " RAISES");
+                break;
             default:
                 System.out.println("DUNNO WHAT DOES " + player);
         }
-    }
-
-    public ArrayList<Card> getTableCards() {
-        return tableCards;
     }
 
     public LinkedList<Player> getCurrPlayers() {
@@ -183,20 +180,5 @@ public class Game {
         return currPlayers.getFirst();
     }
 
-    public int getButtonId() {
-        return buttonId;
-    }
-
-    public int getCall() {
-        return call;
-    }
-
-    public int getBank() {
-        return bank;
-    }
-
-    public int getBlind() {
-        return blind;
-    }
 
 }
