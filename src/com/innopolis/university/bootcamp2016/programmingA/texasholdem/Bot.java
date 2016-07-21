@@ -26,7 +26,7 @@ public class Bot extends Player
         this.difficulty = difficulty;
     }
 
-    public Decision makeDesion(Game game)
+    public Decision makeDecision(Game game)
     {
         if(this.difficulty == 2)
         {

@@ -47,4 +47,8 @@ public class Card {
         SPADES
     }
 
+    @Override
+    public String toString() {
+        return rank+" of "+suit;
+    }
 }

@@ -3,6 +3,7 @@ package com.innopolis.university.bootcamp2016.programmingA.texasholdem;
 import java.util.*;
 
 import static com.innopolis.university.bootcamp2016.programmingA.texasholdem.Game.GameStage.*;
+import static com.innopolis.university.bootcamp2016.programmingA.texasholdem.CombinationRank.*;
 
 public class Game {
     final int blind;
@@ -14,10 +15,11 @@ public class Game {
     int buttonId;
     int call;
     int bank;
+    ArrayList<Player> lastWinners;
     GameStage currStage;
 
     public enum GameStage {
-        START, Preflop, Flop, Turn, River, END;
+        START, Preflop, Flop, Turn, River, END
     }
 
     public Game(int blind, Player... players) {
@@ -86,6 +88,9 @@ public class Game {
             case River:
                 river();
                 break;
+            case END:
+                doWinner();
+                break;
             default:
                 break;
         }
@@ -104,8 +109,13 @@ public class Game {
         }
         currPlayers.add(currPlayers.removeFirst());
         currPlayersIterator = currPlayers.iterator();
-        while (currPlayersIterator.hasNext())
+        while (currPlayersIterator.hasNext()) {
             processDecision(currPlayersIterator.next());
+            if (currPlayers.size() == 1) {
+                currStage = END;
+                return;
+            }
+        }
         currPlayersIterator = null;
         currStage = Flop;
     }
@@ -114,15 +124,25 @@ public class Game {
         tableCards.add(deck.pullCard());
         tableCards.add(deck.pullCard());
         tableCards.add(deck.pullCard());
-        while(true){
-            if(currPlayers.getFirst().equals(players.get(buttonId))) {
-                currPlayers.add(currPlayers.removeFirst());
-                break;
+        for (int i = buttonId + 1; i < (players.size() + buttonId - 1) % players.size(); i = (i + 1) % players.size())
+            if (currPlayers.contains(players.get(i))) {
+                while (!currPlayers.getFirst().equals(players.get(i))) {
+                    currPlayers.add(currPlayers.removeFirst());
+                }
             }
-        }
+
+        currPlayers.add(currPlayers.removeFirst());
         currPlayersIterator = currPlayers.iterator();
         while (currPlayersIterator.hasNext())
+
+        {
             processDecision(currPlayersIterator.next());
+            if (currPlayers.size() == 1) {
+                currStage = END;
+                return;
+            }
+        }
+
         currPlayersIterator = null;
         currStage = Turn;
     }
@@ -130,8 +150,13 @@ public class Game {
     public void turn() {
         tableCards.add(deck.pullCard());
         currPlayersIterator = currPlayers.iterator();
-        while (currPlayersIterator.hasNext())
+        while (currPlayersIterator.hasNext()) {
             processDecision(currPlayersIterator.next());
+            if (currPlayers.size() == 1) {
+                currStage = END;
+                return;
+            }
+        }
         currPlayersIterator = null;
         currStage = River;
     }
@@ -139,15 +164,19 @@ public class Game {
     public void river() {
         tableCards.add(deck.pullCard());
         currPlayersIterator = currPlayers.iterator();
-        while (currPlayersIterator.hasNext())
+        while (currPlayersIterator.hasNext()) {
             processDecision(currPlayersIterator.next());
+            if (currPlayers.size() == 1) {
+                currStage = END;
+                return;
+            }
+        }
         currPlayersIterator = null;
-        //find winner
         currStage = END;
     }
 
     public void processDecision(Player player) {
-        if(currPlayersIterator == null)
+        if (currPlayersIterator == null)
             throw new NullPointerException();
         switch (player.makeDecision(this)) {
             case FOLD:
@@ -161,14 +190,40 @@ public class Game {
                 System.out.println(player + " RAISES");
                 break;
             case CHECK:
-                System.out.println(player + " RAISES");
+                System.out.println(player + " CHECKS");
                 break;
             default:
                 System.out.println("DUNNO WHAT DOES " + player);
         }
     }
 
-    public boolean findWinner(){
+    public boolean doWinner() {
+        HashMap<Player, Combinations> plComb = new HashMap<>();
+        for (Player p : currPlayers) {
+            plComb.put(p, new CombinationRank(new ArrayList<Card>(Arrays.asList(p.getCards())), tableCards).bestCombination());
+        }
+        for(Player ah : currPlayers){
+            System.out.print(ah.toString()+" : "+Arrays.toString(ah.getCards())+" , ");
+            System.out.println(tableCards.toString());
+        }
+        ArrayList<Map.Entry<Player, Combinations>> sortedList = new ArrayList<>(plComb.entrySet());
+        Combinations topComb = Collections.max(plComb.entrySet(), (o1, o2) -> o1.getValue().compareTo(o2.getValue())).getValue();
+        lastWinners = new ArrayList<>();
+        for (Map.Entry<Player, Combinations> entry : plComb.entrySet()) {
+            if (topComb.equals(entry.getValue())) {
+                lastWinners.add(entry.getKey());
+            }
+        }
+        System.out.println(topComb);
+        if (lastWinners.size() == 1)
+            System.out.println(lastWinners.get(0).toString() + " is a winner!");
+        else {
+            System.out.print(lastWinners.get(0).toString() + " [" + plComb.get(lastWinners.get(0)) + "]");
+            for (int i = 1; i < lastWinners.size(); i++) {
+                System.out.print(", " + lastWinners.get(i).toString() + " [" + plComb.get(lastWinners.get(i)) + "]");
+            }
+            System.out.println(" are winners!");
+        }
         return true;
     }
 
