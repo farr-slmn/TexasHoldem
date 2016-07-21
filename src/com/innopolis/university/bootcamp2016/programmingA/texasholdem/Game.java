@@ -1,10 +1,10 @@
 package com.innopolis.university.bootcamp2016.programmingA.texasholdem;
 
+
 import java.util.*;
 
 import static com.innopolis.university.bootcamp2016.programmingA.texasholdem.Game.GameStage.*;
 import static com.innopolis.university.bootcamp2016.programmingA.texasholdem.CombinationRank.*;
-import static com.innopolis.university.bootcamp2016.programmingA.texasholdem.Player.Decision.*;
 
 public class Game {
     final int blind;
@@ -47,19 +47,23 @@ public class Game {
         bank = 0;
         players.removeIf(player -> {
             int index = players.indexOf(player);
-            if (index > -1) {
+            if (player.getMoney() == 0) {
                 if (buttonId == index) {
-                    return false;
+                    buttonId = Utils.nextId(players, buttonId);
                 }
-                if (Utils.nextId(players, buttonId) == index) {
-                    return player.getMoney() < blind / 2;
-                }
-                if (Utils.nextId(players, buttonId + 1) == index) {
-                    return player.getMoney() < blind;
-                }
-                return player.getMoney() < call;
+                return true;
             }
-            return player.getMoney() < blind;
+            if (buttonId == index) {
+                return false;
+            }
+            if (Utils.nextId(players, buttonId) == index) {
+                return player.getMoney() < blind / 2;
+            }
+            if (Utils.nextId(players, buttonId + 1) == index) {
+                return player.getMoney() < blind;
+            }
+            return player.getMoney() < call;
+
         });
         if (players.size() < 2) {
             currStage = GameStage.END;
@@ -71,6 +75,12 @@ public class Game {
         for (int i = 0; i < buttonId; i++) {
             currPlayers.add(currPlayers.removeFirst());
         }
+
+        //OUTPUT START
+        for (Player p : players)
+            System.out.println(p + " [Bank: " + p.getMoney() + "]");
+        //OUTPUT END
+
         tableCards = new ArrayList<>();
         currStage = GameStage.Preflop;
     }
@@ -189,14 +199,15 @@ public class Game {
                 break;
             case CALL:
                 System.out.println(player + " CALLS");
-                player.takeMoney(call);
-                bank += call;
+                bank += player.takeMoney(call);
+                System.out.println("Bank is "+bank);
                 break;
             case RAISE:
                 System.out.println(player + " RAISES for " + player.getRaise());
                 player.takeMoney(player.getRaise());
-                call = (int)player.getRaise();
+                call = (int) player.getRaise();
                 bank += call;
+                System.out.println("Bank is "+bank);
                 break;
             case CHECK:
                 System.out.println(player + " CHECKS");
@@ -231,11 +242,12 @@ public class Game {
             System.out.print(lastWinners.get(0).toString() + " [" + plComb.get(lastWinners.get(0)) + "]");
             for (int i = 1; i < lastWinners.size(); i++) {
                 System.out.print(", " + lastWinners.get(i).toString() + " [" + plComb.get(lastWinners.get(i)) + "]");
-                lastWinners.get(i).giveMoney(bank/lastWinners.size());
+                lastWinners.get(i).giveMoney(bank / lastWinners.size());
             }
             System.out.println(" are winners!");
         }
-        System.out.println("Winning sum is "+bank/lastWinners.size());
+        System.out.println("Winning sum is " + bank / lastWinners.size());
+
         return true;
     }
 

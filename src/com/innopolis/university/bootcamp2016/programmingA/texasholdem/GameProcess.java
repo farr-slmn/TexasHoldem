@@ -13,6 +13,10 @@ public class GameProcess {
             game.runNextStage();
             game.currStage = Game.GameStage.START;
         }
+        //OUTPUT START
+        for (Player p : game.players)
+            System.out.println(p + " [Bank: " + p.getMoney() + "]");
+        //OUTPUT END
 
     }
 }
