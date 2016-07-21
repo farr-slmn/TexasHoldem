@@ -36,13 +36,11 @@ public class CombinationRank {
         summaryCards.sort(new Comparator<Card>() {
             @Override
             public int compare(Card o1, Card o2) {
-                if (o1.getRank().equals(o2.getRank()) && o1.getSuit().compareTo(o2.getSuit()) < 0){
+                if (o1.getRank().equals(o2.getRank()) && o1.getSuit().compareTo(o2.getSuit()) < 0) {
                     return -1;
-                }
-                else if (o1.getRank().equals(o2.getRank()) && o1.getSuit().compareTo(o2.getSuit()) > 0){
+                } else if (o1.getRank().equals(o2.getRank()) && o1.getSuit().compareTo(o2.getSuit()) > 0) {
                     return 1;
-                }
-                else return 0;
+                } else return 0;
             }
         });
     }
@@ -78,48 +76,42 @@ public class CombinationRank {
             if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
                 t = false;
             }
-            if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())){
+            if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())) {
                 t = false;
             }
         }
-        if (!summaryCards.get(0).getRank().equals(Card.CardRankEnum.ACE)){
+        if (!summaryCards.get(0).getRank().equals(Card.CardRankEnum.ACE)) {
             t = false;
         }
-        if (!t && summaryCards.size() == 6){
+        if (!t && summaryCards.size() == 6) {
             t = true;
             for (int i = 2; i < 6; ++i) {
                 if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
                     t = false;
                 }
-                if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())){
+                if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())) {
                     t = false;
                 }
             }
-            if (!summaryCards.get(1).getRank().equals(Card.CardRankEnum.ACE)){
+            if (!summaryCards.get(1).getRank().equals(Card.CardRankEnum.ACE)) {
                 t = false;
             }
         }
-        if (!t && summaryCards.size() == 7){
+        if (!t && summaryCards.size() == 7) {
             t = true;
             for (int i = 3; i < 7; ++i) {
                 if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
                     t = false;
                 }
-                if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())){
+                if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())) {
                     t = false;
                 }
             }
-            if (!summaryCards.get(2).getRank().equals(Card.CardRankEnum.ACE)){
+            if (!summaryCards.get(2).getRank().equals(Card.CardRankEnum.ACE)) {
                 t = false;
             }
         }
-        if (t){
-            return true;
-        }
-        //else {
-
-        //}
-        return false;
+        return t;
     }
 
     public boolean isStraightFlush(ArrayList<Card> summaryCards) {
@@ -129,58 +121,105 @@ public class CombinationRank {
             if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
                 t = false;
             }
-            if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())){
+            if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())) {
                 t = false;
             }
         }
-        if (!t && summaryCards.size() == 6){
+        if (!t && summaryCards.size() == 6) {
             t = true;
             for (int i = 2; i < 6; ++i) {
                 if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
                     t = false;
                 }
-                if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())){
+                if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())) {
                     t = false;
                 }
             }
         }
-        if (!t && summaryCards.size() == 7){
+        if (!t && summaryCards.size() == 7) {
             t = true;
             for (int i = 3; i < 7; ++i) {
                 if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
                     t = false;
                 }
-                if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())){
+                if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())) {
                     t = false;
                 }
             }
         }
-        if (t){
+        if (t) {
             return true;
         }
-//        else {
-//            int one = 0, two = 0, three = 0, four = 0, five = 0;
-//            if (summaryCards.contains(Card.CardRankEnum.ACE) && summaryCards.contains(Card.CardRankEnum.CARD_2)
-//                    && summaryCards.contains(Card.CardRankEnum.CARD_3) && summaryCards.contains(Card.CardRankEnum.CARD_4)
-//                    && summaryCards.contains(Card.CardRankEnum.CARD_5)) {
-//                one = summaryCards.indexOf(Card.CardRankEnum.ACE);
-//                two = summaryCards.indexOf(Card.CardRankEnum.CARD_2);
-//                three = summaryCards.indexOf(Card.CardRankEnum.CARD_3);
-//                four = summaryCards.indexOf(Card.CardRankEnum.CARD_4);
-//                five = summaryCards.indexOf(Card.CardRankEnum.CARD_5);
-//                t = true;
-//            }
-//            if (t && summaryCards.get(one).getSuit().equals(summaryCards.get(two).getSuit()) &&
-//                    summaryCards.get(two).getSuit().equals(summaryCards.get(three).getSuit()) &&
-//                    summaryCards.get(three).getSuit().equals(summaryCards.get(four).getSuit()) &&
-//                    summaryCards.get(four).getSuit().equals(summaryCards.get(five).getSuit())) {
-//                t = true;
-//            }
-//            else{
-//                t = false;
-//            }
-//        }
-        return false;
+        else {
+            int aceAmount = 0;
+            for (Card c : summaryCards) {
+                if (c.getRank().equals(Card.CardRankEnum.ACE)) {
+                    aceAmount++;
+                }
+            }
+            if (aceAmount > 3 || aceAmount <= 0) {
+                return false;
+            }
+            t = true;
+            for (int i = aceAmount + 1; i < 5; ++i) {
+                if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
+                    t = false;
+                }
+                if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())) {
+                    t = false;
+                }
+            }
+            if (!summaryCards.get(aceAmount).getRank().equals(Card.CardRankEnum.CARD_5)) {
+                t = false;
+            }
+            t = false;
+            for (int i = 0; i < aceAmount; ++i) {
+                if (summaryCards.get(i).getSuit().equals(summaryCards.get(4).getSuit())) {
+                    t = true;
+                }
+            }
+            if (!t && summaryCards.size() == 6) {
+                t = true;
+                for (int i = aceAmount + 2; i < 6; ++i) {
+                    if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
+                        t = false;
+                    }
+                    if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())) {
+                        t = false;
+                    }
+                }
+                if (!summaryCards.get(aceAmount + 1).getRank().equals(Card.CardRankEnum.CARD_5)) {
+                    t = false;
+                }
+                t = false;
+                for (int i = 1; i < aceAmount; ++i) {
+                    if (summaryCards.get(i).getSuit().equals(summaryCards.get(4).getSuit())) {
+                        t = true;
+                    }
+                }
+            }
+            if (!t && summaryCards.size() == 7) {
+                t = true;
+                for (int i = aceAmount + 3; i < 7; ++i) {
+                    if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
+                        t = false;
+                    }
+                    if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())) {
+                        t = false;
+                    }
+                }
+                if (!summaryCards.get(aceAmount + 2).getRank().equals(Card.CardRankEnum.CARD_5)) {
+                    t = false;
+                }
+                t = false;
+                for (int i = 2; i < aceAmount; ++i) {
+                    if (summaryCards.get(i).getSuit().equals(summaryCards.get(4).getSuit())) {
+                        t = true;
+                    }
+                }
+            }
+        }
+        return t;
     }
 
     public boolean isFourOfKind(ArrayList<Card> summaryCards) {
@@ -199,10 +238,10 @@ public class CombinationRank {
 
     public boolean isFullHouse(ArrayList<Card> summaryCards) {
         boolean ans = false;
-        int one1 = 0,one2 = 0,one3 = 0;
+        int one1 = 0, one2 = 0, one3 = 0;
         for (int i = 0; i < summaryCards.size(); ++i) {
             for (int j = 0; j < summaryCards.size(); ++j) {
-                for(int k=0;k<summaryCards.size();++k){
+                for (int k = 0; k < summaryCards.size(); ++k) {
                     if (i != j && j != k && i != k &&
                             summaryCards.get(i).getRank().equals(summaryCards.get(j).getRank()) &&
                             summaryCards.get(j).getRank().equals(summaryCards.get(k).getRank())) {
@@ -225,8 +264,7 @@ public class CombinationRank {
                 }
             }
             return ans;
-        }
-        else return false;
+        } else return false;
     }
 
     public boolean isFlush(ArrayList<Card> summaryCards) {
@@ -236,7 +274,7 @@ public class CombinationRank {
                 t = false;
             }
         }
-        if (!t && summaryCards.size() == 6){
+        if (!t && summaryCards.size() == 6) {
             t = true;
             for (int i = 2; i < 6; ++i) {
                 if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())) {
@@ -244,7 +282,7 @@ public class CombinationRank {
                 }
             }
         }
-        if (!t && summaryCards.size() == 7){
+        if (!t && summaryCards.size() == 7) {
             t = true;
             for (int i = 3; i < 7; ++i) {
                 if (!summaryCards.get(i).getSuit().equals(summaryCards.get(i - 1).getSuit())) {
@@ -262,7 +300,7 @@ public class CombinationRank {
                 t = false;
             }
         }
-        if (!t && summaryCards.size() == 6){
+        if (!t && summaryCards.size() == 6) {
             t = true;
             for (int i = 2; i < 6; ++i) {
                 if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
@@ -270,7 +308,7 @@ public class CombinationRank {
                 }
             }
         }
-        if (!t && summaryCards.size() == 7){
+        if (!t && summaryCards.size() == 7) {
             t = true;
             for (int i = 3; i < 7; ++i) {
                 if (summaryCards.get(i).getRank().ordinal() + 1 != summaryCards.get(i - 1).getRank().ordinal()) {
@@ -278,10 +316,9 @@ public class CombinationRank {
                 }
             }
         }
-        if (t){
+        if (t) {
             return true;
-        }
-        else {
+        } else {
             if (summaryCards.contains(Card.CardRankEnum.ACE) && summaryCards.contains(Card.CardRankEnum.CARD_2)
                     && summaryCards.contains(Card.CardRankEnum.CARD_3) && summaryCards.contains(Card.CardRankEnum.CARD_4)
                     && summaryCards.contains(Card.CardRankEnum.CARD_5)) {
@@ -319,7 +356,7 @@ public class CombinationRank {
 
     public boolean isTwoPair(ArrayList<Card> summaryCards) {
         boolean ans = false;
-        int one1 = 0,one2 = 0;
+        int one1 = 0, one2 = 0;
         for (int i = 0; i < summaryCards.size(); ++i) {
             for (int j = 0; j < summaryCards.size(); ++j) {
                 if (i != j && summaryCards.get(i).getRank().equals(summaryCards.get(j).getRank())) {
@@ -339,8 +376,7 @@ public class CombinationRank {
                 }
             }
             return ans;
-        }
-        else return false;
+        } else return false;
     }
 
     public boolean isOnePair(ArrayList<Card> summaryCards) {
