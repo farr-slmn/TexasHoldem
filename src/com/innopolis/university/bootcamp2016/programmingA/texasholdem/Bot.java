@@ -27,9 +27,13 @@ public class Bot extends Player {
         if (this.difficulty == 2) {
 
             decision = mediumLevel();
-        } else if (this.difficulty == 3) {
+        }
+        else if (this.difficulty == 3)
+        {
             decision = hardLevel(game);
-        } else {
+        }
+        else
+        {
             decision = Decision.values()[new Random().nextInt(Decision.values().length)];
         }
         if (Decision.RAISE.equals(decision)) {

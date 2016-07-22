@@ -77,7 +77,7 @@ public class AiBotDecision
                         addedCards.clear();
                     }
 
-                    if(comTemp.ordinal() > 5)
+                    if(max > 2)
                     {
                         return Player.Decision.CALL;
                     }
@@ -140,13 +140,17 @@ public class AiBotDecision
                     addedCards.clear();
                 }
 
-                if(comTemp.ordinal() > 5 && comTemp.ordinal() < 9)
+                if(max > 5 && max < 9)
                 {
                     return Player.Decision.CALL;
                 }
-                else if(comTemp.ordinal() < 5)
+                else if(max < 5)
                 {
                     return Player.Decision.CHECK;
+                }
+                else
+                {
+                    return Player.Decision.RAISE;
                 }
             }
             else if(game.currStage== Game.GameStage.River)

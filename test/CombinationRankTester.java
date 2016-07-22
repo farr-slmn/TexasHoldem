@@ -18,6 +18,7 @@ public class CombinationRankTester {
         ArrayList<Card> tableCards = new ArrayList<>();
         tableCards.add(new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.QUEEN));
         tableCards.add(new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.KING));
+        tableCards.add(new Card(Card.CardSuitEnum.SPADES, Card.CardRankEnum.CARD_10));
         tableCards.add(new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.ACE));
 
         CombinationRank combo = new CombinationRank(playersCards, tableCards);
@@ -181,6 +182,42 @@ public class CombinationRankTester {
         Assert.assertEquals(combo.isStraight(combo.summaryCards), true);
     }
 
+    @Test
+    public void testStraightFlush()
+    {
+        ArrayList<Card> playersCards = new ArrayList<>();
+        playersCards.add(new Card(Card.CardSuitEnum.CLUBS,Card.CardRankEnum.ACE));
+        playersCards.add(new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.CARD_3));
 
+        ArrayList<Card> tableCards = new ArrayList<>();
+        tableCards.add(new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.CARD_2  ));
+        tableCards.add(new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.CARD_4));
+        tableCards.add(new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.CARD_5));
+        tableCards.add(new Card(Card.CardSuitEnum.SPADES, Card.CardRankEnum.CARD_5));
+        tableCards.add(new Card(Card.CardSuitEnum.SPADES, Card.CardRankEnum.ACE));
+
+        CombinationRank combo = new CombinationRank(playersCards, tableCards);
+
+        Assert.assertEquals(combo.isStraightFlush(combo.summaryCards), true);
+    }
+
+    @Test
+    public void testRoyalFlush2()
+    {
+        ArrayList<Card> playersCards = new ArrayList<>();
+        playersCards.add(new Card(Card.CardSuitEnum.CLUBS,Card.CardRankEnum.ACE));
+        playersCards.add(new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.CARD_3));
+
+        ArrayList<Card> tableCards = new ArrayList<>();
+        tableCards.add(new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.CARD_2  ));
+        tableCards.add(new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.CARD_4));
+        tableCards.add(new Card(Card.CardSuitEnum.CLUBS, Card.CardRankEnum.CARD_5));
+        tableCards.add(new Card(Card.CardSuitEnum.SPADES, Card.CardRankEnum.CARD_5));
+        tableCards.add(new Card(Card.CardSuitEnum.SPADES, Card.CardRankEnum.ACE));
+
+        CombinationRank combo = new CombinationRank(playersCards, tableCards);
+
+        Assert.assertEquals(combo.isStraightFlush(combo.summaryCards), true);
+    }
 
 }
