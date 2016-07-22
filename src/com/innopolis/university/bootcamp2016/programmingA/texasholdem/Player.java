@@ -1,8 +1,9 @@
 package com.innopolis.university.bootcamp2016.programmingA.texasholdem;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.Scanner;
 
 import static com.innopolis.university.bootcamp2016.programmingA.texasholdem.Player.Decision.*;
@@ -93,21 +94,49 @@ public class Player {
     }
 
     public Decision makeDecision(Game game) {
-        System.out.println(name + " choose your action: ");
         Scanner sc = new Scanner(System.in);
-        int action = Integer.parseInt(sc.nextLine());
-        if (action == 1) {
-            return Decision.CALL;
-        } else if (action == 2) {
-            return FOLD;
-        } else {
-            raise = Long.parseLong(sc.nextLine());
-            if (raise > game.call && raise <= money)
-                return RAISE;
-            else
-                throw new IllegalArgumentException();
+        Decision d;
+
+        //OUTPUT START
+        System.out.println();
+        if(!cards.isEmpty())
+            System.out.println("Your cards: "+Arrays.toString(cards.toArray()));
+        if(!game.tableCards.isEmpty())
+            System.out.println("Table cards: "+Arrays.toString(game.tableCards.toArray()));
+        System.out.println(name + " choose your action:         [Bank: "+money+"]");
+        //OUTPUT END
+
+        ArrayList<Decision> decisions = new ArrayList<>(Arrays.asList(Decision.values()));
+        if (game.currStage.equals(Game.GameStage.Preflop)) {
+            decisions.remove(CHECK);
+        }
+        if (money == 0)
+            decisions.remove(CALL);
+        if (money <= game.call) {
+            decisions.remove(RAISE);
         }
 
+        //OUTPUT START
+        for (int i = 0; i < decisions.size(); i++) {
+            System.out.println(i + 1 + ") " + decisions.get(i));
+        }
+        //OUTPUT END
+
+        while(true)
+        try {
+            d = decisions.get(Integer.parseInt(sc.nextLine()) - 1);
+            break;
+        }catch (NumberFormatException e){
+            continue;
+        }
+        if (RAISE.equals(d)) {
+            raise = Long.parseLong(sc.nextLine());
+            if (raise <= game.call)
+                raise = game.call + 1;
+            if (raise > money)
+                raise = money;
+        }
+        return d;
     }
 
     public long getRaise() {
